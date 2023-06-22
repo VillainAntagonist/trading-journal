@@ -3,12 +3,13 @@ import { IUser } from "../../types/user";
 import authReducer, { setUser, clearUser, startLoading, finishLoading } from "../reducers/auth";
 
 describe('authSlice', () => {
-    let initialState: { user: IUser | null; loading: boolean };
+    let initialState: { user: IUser | null; loading: boolean; authenticated: boolean };
 
     beforeEach(() => {
         initialState = {
             user: null,
             loading: false,
+            authenticated: false,
         };
     });
 
