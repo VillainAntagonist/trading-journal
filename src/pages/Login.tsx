@@ -2,7 +2,7 @@ import React from 'react';
 import * as Yup from 'yup';
 import {Form, FormikProvider, useFormik} from "formik";
 import {useLoginMutation} from "../store/services/authApi";
-import {Grid, TextField} from "@mui/material";
+import {Grid, Stack, TextField} from "@mui/material";
 import {LoadingButton} from "@mui/lab";
 import Page from "../components/Page";
 
@@ -33,6 +33,7 @@ const Login : React.FC = () => {
             <Grid item xs={12} sm={6} md={4} lg={3}>
                 <FormikProvider value={formik}>
                     <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+                        <Stack spacing={3}>
                         <TextField
                         label="Username"
                         variant="outlined"
@@ -62,6 +63,7 @@ const Login : React.FC = () => {
                     >
                         {isSubmitting ? 'Logging in...' : 'Log in'}
                     </LoadingButton>
+                        </Stack>
                     </Form>
                 </FormikProvider>
             </Grid>
