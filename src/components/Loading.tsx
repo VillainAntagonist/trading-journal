@@ -6,7 +6,7 @@ const Loading: React.FC = () => {
         <Box height={400} width={400}>
             <Box height={100} />
             <Box display="flex" justifyContent="center" alignItems="center">
-                <CircularProgress size={100} />
+                <CircularProgress data-testid="loading-indicator" size={100} />
             </Box>
             <Box height={100} />
             <Box display="flex" justifyContent="center" alignItems="center">
