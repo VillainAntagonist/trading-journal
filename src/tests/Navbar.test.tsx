@@ -14,8 +14,8 @@ describe('Navbar', () => {
 
         render(<Navbar handleToggle={handleToggleMock} />);
 
-        const menuButton = screen.getByRole('button', { name: 'Menu' });
-        const logoutButton = screen.getByRole('button', { name: 'Logout' });
+        const menuButton = screen.getByLabelText('menu' );
+        const logoutButton = screen.getByLabelText('logout');
 
         fireEvent.click(menuButton);
         fireEvent.click(logoutButton);
