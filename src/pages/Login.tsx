@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Yup from 'yup';
 import {Form, FormikProvider, useFormik} from "formik";
-import {useLoginMutation} from "../store/services/authApi";
+import {useLazyAuthenticateQuery, useLoginMutation} from "../store/services/authApi";
 import {Grid, Stack, TextField} from "@mui/material";
 import {LoadingButton} from "@mui/lab";
 import Page from "../components/Page";
@@ -12,6 +12,7 @@ const Login : React.FC = () => {
         password: Yup.string().required('Password is required'),
     });
     const [login, { isLoading, isError, error }] = useLoginMutation();
+    const [trigger] = useLazyAuthenticateQuery();
 
     const formik = useFormik({
         initialValues: {
@@ -19,9 +20,19 @@ const Login : React.FC = () => {
             password: '',
         },
         validationSchema,
-        onSubmit: (values) => {
+        onSubmit: async (values, actions) => {
+            try {
+               await login(values).unwrap();
+                // @ts-ignore
+                await trigger().unwrap();
+
+                actions.setSubmitting(false)
+
+            }catch (e) {
+                actions.setSubmitting(false)
+
+            }
             // Call the login mutation hook
-            login(values);
         },
     });
     const { errors, touched, isSubmitting, handleSubmit, getFieldProps } = formik;
