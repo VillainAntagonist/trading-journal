@@ -9,13 +9,13 @@ export const authApi = createApi({
         // Define your authentication endpoints here
         login: builder.mutation({
             query: (credentials) => ({
-                url: '/auth/login',
+                url: '/user/login',
                 method: 'POST',
                 body: credentials,
             }),
         }),
         authenticate: builder.query({
-            query: () => "user",
+            query: () => "user/auth",
             async onQueryStarted(id, { dispatch, queryFulfilled }) {
                 dispatch(startLoading());
                 try {
@@ -28,7 +28,7 @@ export const authApi = createApi({
         logout: builder.mutation({
             query() {
                 return {
-                    url: "auth/logout",
+                    url: "user/logout",
                     credentials: "include",
                 };
             },
@@ -36,7 +36,7 @@ export const authApi = createApi({
                 dispatch(startLoading());
                 try {
                     await queryFulfilled;
-                    dispatch(clearUser);
+                    dispatch(clearUser());
                 } catch (err) {}
                 dispatch(finishLoading());
             },
@@ -44,4 +44,4 @@ export const authApi = createApi({
 
 });
 
-export const { useLoginMutation, useAuthenticateQuery, useLogoutMutation } = authApi;
+export const { useLoginMutation, useAuthenticateQuery, useLogoutMutation, useLazyAuthenticateQuery } = authApi;
