@@ -20,7 +20,6 @@ const Login : React.FC = () => {
     const [trigger] = useLazyAuthenticateQuery();
 
     const { state } = useLocation();
-    console.log(state)
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -61,6 +60,7 @@ const Login : React.FC = () => {
                     <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
                         <Stack spacing={3}>
                         <TextField
+                            autoComplete="username"
                         label="Username"
                         variant="outlined"
                         fullWidth
@@ -70,6 +70,7 @@ const Login : React.FC = () => {
                         helperText={touched.username && errors.username}
                     />
                     <TextField
+                        autoComplete="password"
                         label="Password"
                         variant="outlined"
                         fullWidth
