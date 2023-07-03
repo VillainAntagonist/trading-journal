@@ -7,6 +7,7 @@ import AuthLayout from "../layouts/authenticated";
 import Loading from "../components/Loading";
 import {useAuthenticateQuery} from "../store/services/authApi";
 import NotFound from "../pages/NotFound";
+import Strategies from "../pages/Strategies";
 
 const Router: FC = () => {
 
@@ -30,6 +31,7 @@ const Router: FC = () => {
                 { path: "/", element: <Navigate to="/main" replace /> },
                 { path: "/main", element: <Main /> },
                 { path: "/trades", element: <div>Trades will be here</div>},
+                {path: "/strategies", element: <Strategies/>},
                 {path: "/404", element: <NotFound/>},
                 {path: "*", element: <Navigate to="404" />},
             ],

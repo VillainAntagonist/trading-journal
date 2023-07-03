@@ -9,7 +9,7 @@ import {
     Typography
 } from "@mui/material";
 import {Link, matchPath, useLocation} from "react-router-dom";
-import {Assignment, MenuBook} from "@mui/icons-material";
+import {Assignment, Lightbulb, MenuBook} from "@mui/icons-material";
 
 interface SidebarProps {
     open: boolean;
@@ -51,6 +51,16 @@ const Sidebar: FC<SidebarProps> = ({open, handleToggle}) => {
                         <Assignment />
                     </ListItemIcon>
                     <ListItemText primary="Trades" />
+                </ListItemButton>
+                <ListItemButton
+                    component={Link}
+                    to="/strategies"
+                    selected={isItemActive('/strategies')}
+                >
+                    <ListItemIcon>
+                        <Lightbulb />
+                    </ListItemIcon>
+                    <ListItemText primary="Strategies" />
                 </ListItemButton>
             </List>
         </Drawer>

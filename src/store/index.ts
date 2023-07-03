@@ -6,6 +6,7 @@ import authReducer from "./reducers/auth"
 import notificationReducer from "./reducers/notifications";
 import {authApi} from "./services/authApi";
 import errorNotification from "./middlewares/errorNotification";
+import {useFetch} from "./services/useFetch";
 export type RootState = ReturnType<typeof store.getState>;
 
 const store = configureStore({
@@ -13,10 +14,12 @@ const store = configureStore({
         auth: authReducer,
         notification: notificationReducer,
         [authApi.reducerPath]: authApi.reducer,
+        [useFetch.reducerPath]: useFetch.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(
             authApi.middleware,
+            useFetch.middleware,
             errorNotification
         )
 });
