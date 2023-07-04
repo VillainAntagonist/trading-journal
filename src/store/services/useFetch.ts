@@ -32,7 +32,6 @@ export const useFetch = createApi({
         }),
         put: builder.mutation({
             query({ url, tag, ...values }) {
-                console.log("put")
                 return {
                     url: url,
                     method: "PUT",
@@ -51,8 +50,6 @@ export const useFetch = createApi({
         }),
         patch: builder.mutation({
             query({ url, values }) {
-                console.log(values)
-
                 return {
                     url: url,
                     method: "PATCH",

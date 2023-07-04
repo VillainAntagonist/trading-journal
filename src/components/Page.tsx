@@ -1,6 +1,6 @@
 import React, { forwardRef, ForwardRefRenderFunction } from 'react';
 import { Box } from '@mui/material';
-import {Helmet} from "react-helmet";
+import { Helmet } from 'react-helmet-async';
 interface PageProps {
     title?: string;
     children: React.ReactNode;
