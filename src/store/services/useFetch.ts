@@ -81,7 +81,24 @@ export const useFetch = createApi({
                     : "";
               return  [invalidateTag];
             },
+        }),
+        handleDeleteMultiple: builder.mutation({
+            query({ url, tag, values }) {
+                return {
+                    url: url,
+                    method: "DELETE",
+                    body: values,
+                };
+            },
+            invalidatesTags: (result, error, { url, tag = true }) => {
+                const invalidateTag = tag
+                    ? typeof tag === "string"
+                        ? tag
+                        : url.split("/")[0]
+                    : "";
+                return  [invalidateTag];
+            },
         })
     })});
 
-export const { useGetQuery, usePostMutation, usePutMutation, usePatchMutation, useHandleDeleteMutation } = useFetch;
+export const { useGetQuery, usePostMutation, usePutMutation, usePatchMutation, useHandleDeleteMutation, useHandleDeleteMultipleMutation } = useFetch;
