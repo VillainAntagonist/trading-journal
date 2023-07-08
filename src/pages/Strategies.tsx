@@ -16,7 +16,6 @@ import {
 import TableToolbar from '../sections/strategies/TableToolbar';
 import {IStrategy} from "../types/strategy";
 import {TextField} from "@mui/material";
-import {GridStartCellEditModeParams} from "@mui/x-data-grid/models/api/gridEditingApi";
 
 
 
@@ -97,7 +96,8 @@ const Strategies = () => {
                 }}
                 onCellEditStop={handleCellEditCommit}
                 slots={{
-                    toolbar: TableToolbar,
+                    toolbar: ()=><TableToolbar
+                        selected={selected} endpoint="strategies"/>,
                 }}
             />
         </div>

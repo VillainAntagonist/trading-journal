@@ -84,6 +84,7 @@ export const useFetch = createApi({
         }),
         handleDeleteMultiple: builder.mutation({
             query({ url, tag, values }) {
+                console.log(values)
                 return {
                     url: url,
                     method: "DELETE",
