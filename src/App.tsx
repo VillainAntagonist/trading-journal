@@ -3,6 +3,7 @@ import Router from "./router";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Notification from "./components/Notification";
+import { HelmetProvider } from 'react-helmet-async';
 
 function App() {
   return (
@@ -16,7 +17,9 @@ function App() {
               draggable
           />
             <Notification/>
-   <Router/>
+            <HelmetProvider>
+            <Router/>
+            </HelmetProvider>
           </>
   );
 }

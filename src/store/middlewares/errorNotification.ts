@@ -8,7 +8,7 @@ const errorNotification: Middleware = (store) => (next) => (action) => {
         const error = action.error;
         if (error ) {
             console.log(error)
-            const errorMessage = data.error || error?.message || 'An error occurred';
+            const errorMessage = data?.error || error?.message || 'An error occurred';
             store.dispatch(displayToast({message: errorMessage, type: 'error'}));
         }
     }
