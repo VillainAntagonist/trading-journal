@@ -9,11 +9,12 @@ import {
 import TableToolbar from "../sections/strategies/TableToolbar";
 import {usePatchMutation} from "../store/services/useFetch";
 import {IStrategy} from "../types/strategy";
+import {ITrade} from "../types/trade";
 
 
 interface GridTableProps {
     endpoint: string;
-    rows: IStrategy[];
+    rows: IStrategy[] | ITrade[];
     columns: GridColDef[];
     title: string;
     isLoading: boolean;
@@ -29,6 +30,9 @@ const GridTable: FC<GridTableProps> = ({endpoint, rows, columns, title, isLoadin
             event.defaultMuiPrevented = true;
             return
         }
+
+        // @ts-ignore
+        console.log(event.target.value)
 
         // @ts-ignore
         await patch({url: `${endpoint}/${id}`, values: {[field]: event.target.value}}).unwrap()

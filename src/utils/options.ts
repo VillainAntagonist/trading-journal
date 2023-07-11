@@ -23,19 +23,22 @@ export const forexPairs = [
     "USD/SEK",
     "USD/NOK",
     "USD/DKK",
-    "USD/JPY",
-    "EUR/JPY",
-    "GBP/JPY",
-    "AUD/JPY",
-    "NZD/JPY",
-    "CAD/JPY",
     "GBP/CAD",
     "GBP/AUD",
-    "GBP/NZD",
-    "GBP/CHF",
-    "EUR/CAD",
-    "EUR/AUD",
-    "EUR/NZD",
-    "EUR/CHF",
-    "AUD/CAD",
+    "GBP/NZD"
 ];
+
+export const tradeTypes = [
+    "Long",
+    "Short"
+]
+
+export const statuses = [
+    "Open",
+    "Closed"
+]
+
+export const results = [
+    "Win",
+    "Loss",
+]

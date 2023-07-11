@@ -10,11 +10,14 @@ export interface ITrade {
     entryDateTime: Date;
     exitDateTime: Date;
     status: string;
-    net: number
+    result: string;
     risk: number;
+    type: string;
     expectedRRR: number;
     actualRRR: number;
     screenshot: string;
     comments: string;
     retrospective: string;
+    pips: number;
+    net: number
 }

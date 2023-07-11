@@ -8,6 +8,7 @@ import Loading from "../components/Loading";
 import {useAuthenticateQuery} from "../store/services/authApi";
 import NotFound from "../pages/NotFound";
 import Strategies from "../pages/Strategies";
+import Trades from "../pages/Trades";
 
 const Router: FC = () => {
 
@@ -30,7 +31,7 @@ const Router: FC = () => {
             children: [
                 { path: "/", element: <Navigate to="/main" replace /> },
                 { path: "/main", element: <Main /> },
-                { path: "/trades", element: <div>Trades will be here</div>},
+                { path: "/trades", element: <Trades/>},
                 {path: "/strategies", element: <Strategies/>},
                 {path: "/404", element: <NotFound/>},
                 {path: "*", element: <Navigate to="404" />},
