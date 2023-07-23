@@ -2,18 +2,19 @@ import React, {FC, useState} from 'react';
 import {
     DataGrid,
     GridCellEditStopParams,
-    GridCellEditStopReasons, GridColDef,
+    GridCellEditStopReasons, GridColDef, GridRowModel,
     GridRowSelectionModel,
     MuiEvent
 } from "@mui/x-data-grid";
 import TableToolbar from "../sections/strategies/TableToolbar";
-import {usePatchMutation} from "../store/services/useFetch";
+import {usePatchMutation, usePutMutation} from "../store/services/useFetch";
 import {IStrategy} from "../types/strategy";
+import {ITrade} from "../types/trade";
 
 
 interface GridTableProps {
     endpoint: string;
-    rows: IStrategy[];
+    rows: IStrategy[] | ITrade[];
     columns: GridColDef[];
     title: string;
     isLoading: boolean;
@@ -22,16 +23,12 @@ interface GridTableProps {
 const GridTable: FC<GridTableProps> = ({endpoint, rows, columns, title, isLoading}) => {
 
     const [selected, setSelected] = useState<GridRowSelectionModel>([]);
-    const [patch, {isLoading: isPatching}] = usePatchMutation();
-    const handleCellEditCommit = async (params: GridCellEditStopParams, event: MuiEvent) => {
-        const {id, field} = params;
+    const [put, {isLoading:isPut}] = usePutMutation()
+    const handleCellEditCommit = async (params: GridCellEditStopParams, event: MuiEvent, details:any) => {
         if (params.reason === GridCellEditStopReasons.cellFocusOut) {
             event.defaultMuiPrevented = true;
             return
         }
-
-        // @ts-ignore
-        await patch({url: `${endpoint}/${id}`, values: {[field]: event.target.value}}).unwrap()
     };
 
     return (
@@ -51,7 +48,14 @@ const GridTable: FC<GridTableProps> = ({endpoint, rows, columns, title, isLoadin
                 onRowSelectionModelChange={(newRowSelectionModel) => {
                     setSelected(newRowSelectionModel);
                 }}
+                processRowUpdate={async(newRow:GridRowModel) => {
+                    await put({url: `${endpoint}/${newRow._id}`, ...newRow}).unwrap()
+                    return newRow
+                }}
                 onCellEditStop={handleCellEditCommit}
+                onProcessRowUpdateError={(error:Error)=>{
+                    console.log(error)
+                }}
                 slots={{
                     toolbar: ()=><TableToolbar
                         title={title} selected={selected} endpoint={endpoint}/>,
