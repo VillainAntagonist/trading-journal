@@ -9,10 +9,11 @@ import GridTable from "../components/GridTable";
 import {ITrade} from "../types/trade";
 import AutocompleteInput from "../components/AutocompleteInput";
 import {forexPairs} from "../utils/options";
+import Autocomplete from "../components/Autocomplete";
 
 const Trades = () => {
     const {data :trades=[] as ITrade[], isLoading, isError} = useGetQuery("trades")
-
+    const {data: strategies=[] as IStrategy[]} = useGetQuery("strategies")
 
     const columns: GridColDef[] = [
         {
@@ -37,6 +38,28 @@ const Trades = () => {
                 )
             },
         },
+        {
+            field: "strategy",
+            headerName: "Strategy",
+            flex: 1,
+            editable: true,
+            renderCell: (params: GridCellParams): React.ReactNode => {
+                // @ts-ignore
+                return getPlaceholder(params.value?.title as string, "Select Strategy")
+            },
+            renderEditCell: (params:GridRenderCellParams) => {
+                const { id, api, field } = params;
+                const handleInputChange = (value: string | null) => {
+                    api.setEditCellValue({id, field, value: value});
+                };
+
+                return (
+                    // @ts-ignore
+                    <Autocomplete<IStrategy> options={strategies} value={params.value} setValue={handleInputChange} field="title"/>
+                )
+            },
+        },
+
     ];
 
 

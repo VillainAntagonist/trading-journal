@@ -18,12 +18,13 @@ const Autocomplete = <T extends { [key: string]: string }>({
         _: React.ChangeEvent<unknown>,
         newValue: T | null
     ) => {
+        console.log(newValue)
         setValue(newValue);
     };
 
     return (
         <MuiAutocomplete
-            value={value}
+            value={value || null}
             fullWidth
             onChange={handleOptionChange}
             options={options}
@@ -31,7 +32,7 @@ const Autocomplete = <T extends { [key: string]: string }>({
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    placeholder="Select or enter a value"
+                    placeholder="Select a value"
                     variant="outlined"
                 />
             )}
