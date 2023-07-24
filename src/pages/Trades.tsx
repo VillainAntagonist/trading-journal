@@ -1,19 +1,18 @@
 import React from 'react';
-import {IStrategy} from "../types/strategy";
-import {useGetQuery} from "../store/services/useFetch";
+import {useGetOptionsQuery, useGetQuery} from "../store/services/useFetch";
 import {GridCellParams, GridColDef, GridRenderCellParams} from "@mui/x-data-grid";
 import {getPlaceholder} from "../utils/getPlaceholder";
-import {TextField} from "@mui/material";
 import ServerError from "../components/ServerError";
 import GridTable from "../components/GridTable";
 import {ITrade} from "../types/trade";
 import AutocompleteInput from "../components/AutocompleteInput";
-import {forexPairs} from "../utils/options";
+import {forexPairs, tradeTypes} from "../utils/options";
 import Autocomplete from "../components/Autocomplete";
+import {IOption} from "../types/general";
 
 const Trades = () => {
     const {data :trades=[] as ITrade[], isLoading, isError} = useGetQuery("trades")
-    const {data: strategies=[] as IStrategy[]} = useGetQuery("strategies")
+    const {data: strategies=[] as IOption[]} = useGetOptionsQuery({url: "strategies", labelName: "title"})
 
     const columns: GridColDef[] = [
         {
@@ -39,13 +38,42 @@ const Trades = () => {
             },
         },
         {
+          field: "size",
+          headerName: "Size",
+            flex: 1,
+          editable:true,
+          type:"number"
+        },
+        {
+            field: "type",
+            headerName: "Type",
+            flex: 1,
+            editable: true,
+            type: "singleSelect",
+            valueOptions: tradeTypes
+        },
+        {
+            field: "enter",
+            headerName: "Enter",
+            flex: 1,
+            editable:true,
+            type:"number"
+        },
+        {
+            field: "exit",
+            headerName: "Exit",
+            flex: 1,
+            editable:true,
+            type:"number"
+        },
+        {
             field: "strategy",
             headerName: "Strategy",
             flex: 1,
             editable: true,
             renderCell: (params: GridCellParams): React.ReactNode => {
                 // @ts-ignore
-                return getPlaceholder(params.value?.title as string, "Select Strategy")
+                return getPlaceholder(strategies.find(e=>e.value === params.value)?.label as string, "Select Strategy")
             },
             renderEditCell: (params:GridRenderCellParams) => {
                 const { id, api, field } = params;
@@ -55,7 +83,7 @@ const Trades = () => {
 
                 return (
                     // @ts-ignore
-                    <Autocomplete<IStrategy> options={strategies} value={params.value} setValue={handleInputChange} field="title"/>
+                    <Autocomplete options={strategies} value={params.value} setValue={handleInputChange}/>
                 )
             },
         },
