@@ -67,6 +67,12 @@ const Trades = () => {
             type:"number"
         },
         {
+            field: 'pips',
+            headerName: 'Pips',
+            flex: 1,
+            type: 'number',
+        },
+        {
             field: "strategy",
             headerName: "Strategy",
             flex: 1,
