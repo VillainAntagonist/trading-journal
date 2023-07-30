@@ -10,9 +10,9 @@ export interface ITrade {
     entryDateTime: Date;
     exitDateTime: Date;
     status: string;
-    result: string;
+    result: 'Win' | 'Loss';
     risk: number;
-    type: string;
+    type: 'Long' | 'Short';
     expectedRRR: number;
     actualRRR: number;
     screenshot: string;

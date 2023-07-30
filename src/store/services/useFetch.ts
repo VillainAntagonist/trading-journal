@@ -12,6 +12,15 @@ export const useFetch = createApi({
                 return ["all", ...tags];
             },
         }),
+        getOptions: builder.query({
+            query: ({url, labelName}) => url,
+            transformResponse: (response: {_id: string, [key:string]:string}[],meta, {labelName}) => {
+                return response.filter(item=>item[labelName]).map((item) => ({
+                    value: item._id,
+                    label: item[labelName],
+                }));
+            },
+        }),
         post: builder.mutation({
             query({ url, tag, ...values }) {
                 return {
@@ -101,4 +110,4 @@ export const useFetch = createApi({
         })
     })});
 
-export const { useGetQuery, usePostMutation, usePutMutation, usePatchMutation, useHandleDeleteMutation, useHandleDeleteMultipleMutation } = useFetch;
+export const { useGetQuery, usePostMutation, usePutMutation, usePatchMutation, useHandleDeleteMutation, useHandleDeleteMultipleMutation, useGetOptionsQuery } = useFetch;
