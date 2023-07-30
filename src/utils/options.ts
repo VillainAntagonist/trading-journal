@@ -38,7 +38,7 @@ export const statuses = [
     "Closed"
 ]
 
-export const results = [
+export const result = [
     "Win",
     "Loss",
 ]

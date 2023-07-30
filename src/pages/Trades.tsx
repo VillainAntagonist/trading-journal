@@ -9,6 +9,8 @@ import AutocompleteInput from "../components/AutocompleteInput";
 import {forexPairs, tradeTypes} from "../utils/options";
 import Autocomplete from "../components/Autocomplete";
 import {IOption} from "../types/general";
+import {Label} from "@mui/icons-material";
+import {Chip, Typography} from "@mui/material";
 
 const Trades = () => {
     const {data :trades=[] as ITrade[], isLoading, isError} = useGetQuery("trades")
@@ -71,6 +73,29 @@ const Trades = () => {
             headerName: 'Pips',
             flex: 1,
             type: 'number',
+        },
+        {
+            field: 'net',
+            headerName: "Net",
+            flex: 1,
+            valueGetter: params => {
+                if (params.row.net){
+                    return `${params.row.net} ${params.row.symbol.split("/")[1]}`
+                }
+            }
+        },
+        {
+            field: "result",
+            headerName: "Result",
+            flex:1,
+            renderCell: (params: GridCellParams): React.ReactNode=>{
+                const {value } = params
+                if ( typeof value === "string"){
+                    return <Chip variant="filled" label={value} color={value === "Win"? "success": "error"}/>
+                } else {
+                    return <Typography> - </Typography>
+                }
+            }
         },
         {
             field: "strategy",
